@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Руслан - Веб-разработчик | Создание сайтов под ключ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --dark-color: #1e1e24;
+            --light-color: #f8f9fa;
+            --accent-color: #4cc9f0;
+            --background-color: #f8f9fa;
+            --text-color: #1e1e24;
+            --card-bg: #ffffff;
+            --section-bg: #ffffff;
+            --footer-bg: #1e1e24;
+        }
+        
+        /* Темная тема */
+        .dark-mode {
+            --primary-color: #4ad66d;
+            --secondary-color: #3a7d44;
+            --dark-color: #121212;
+            --light-color: #1e1e24;
+            --accent-color: #70e000;
+            --background-color: #121212;
+            --text-color: #f8f9fa;
+            --card-bg: #1e1e24;
+            --section-bg: #1a1a1a;
+            --footer-bg: #0a0a0a;
+        }
+        
+        /* Богатая зеленая тема для образовательного центра */
+        .education-theme {
+            --primary-color: #2a6b34;
+            --secondary-color: #1e4d2b;
+            --dark-color: #0d1f12;
+            --light-color: #f0f7f4;
+            --accent-color: #4caf50;
+            --background-color: #f0f7f4;
+            --text-color: #0d1f12;
+            --card-bg: #ffffff;
+            --section-bg: #e0ece4;
+            --footer-bg: #0d1f12;
+        }
+        
+        .education-theme.dark-mode {
+            --primary-color: #4ad66d;
+            --secondary-color: #2a6b34;
+            --dark-color: #0d1f12;
+            --light-color: #1a2e1f;
+            --accent-color: #70e000;
+            --background-color: #0d1f12;
+            --text-color: #f0f7f4;
+            --card-bg: #1a2e1f;
+            --section-bg: #122618;
+            --footer-bg: #08140b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Кнопка смены темы */
+        .theme-switcher {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .theme-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        
+        .theme-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        #lightThemeBtn {
+            background-color: #f8f9fa;
+            color: #1e1e24;
+        }
+        
+        #darkThemeBtn {
+            background-color: #1e1e24;
+            color: #f8f9fa;
+        }
+        
+        #educationThemeBtn {
+            background-color: #2a6b34;
+            color: #f0f7f4;
+        }
+        
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(var(--card-bg-rgb), 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .language-toggle {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .language-toggle button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: all 0.3s;
+            color: var(--text-color);
+        }
+        
+        .language-toggle button.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+            background-color: var(--background-color);
+            text-align: center;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(var(--primary-color-rgb), 0.1) 0%, rgba(var(--accent-color-rgb), 0.1) 100%);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            color: var(--text-color);
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            color: var(--text-color);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(var(--primary-color-rgb), 0.2);
+        }
+        
+        /* Services Section */
+        .section {
+            padding: 100px 0;
+            background-color: var(--section-bg);
+        }
+        
+        .why-me {
+            background-color: var(--section-bg);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            transform: translateY(20px);
+            opacity: 0;
+            color: var(--text-color);
+        }
+        
+        .service-card.animate {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .service-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+        
+        /* Why Choose Me Section */
+        .advantages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .advantage {
+            text-align: center;
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            transform: scale(0.95);
+            opacity: 0;
+            color: var(--text-color);
+        }
+        
+        .advantage.animate {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .advantage:hover {
+            transform: scale(1.05);
+        }
+        
+        .advantage-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+        
+        /* Portfolio Section */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 250px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: scale(0.95);
+            opacity: 0;
+            transition: all 0.5s;
+        }
+        
+        .portfolio-item.animate {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        /* Process Section */
+        .process-steps {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 30px;
+            height: 100%;
+            width: 2px;
+            background-color: var(--primary-color);
+            z-index: 0;
+        }
+        
+        .step {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 40px;
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: all 0.5s;
+        }
+        
+        .step.animate {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .step-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            z-index: 1;
+        }
+        
+        .step-content {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            color: var(--text-color);
+        }
+        
+        .step h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-image {
+            position: relative;
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: translateX(-50px);
+            opacity: 0;
+            transition: all 0.8s;
+        }
+        
+        .about-image.animate {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .about-text {
+            transform: translateX(50px);
+            opacity: 0;
+            transition: all 0.8s;
+            color: var(--text-color);
+        }
+        
+        .about-text.animate {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .about-text h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+        }
+        
+        /* FAQ Section */
+        .faq-item {
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s;
+        }
+        
+        .faq-item.animate {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .faq-question {
+            padding: 20px;
+            background-color: var(--card-bg);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .faq-question::after {
+            content: '+';
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+        
+        .faq-question.active::after {
+            content: '-';
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            background-color: var(--section-bg);
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: var(--text-color);
+        }
+        
+        .faq-answer.open {
+            padding: 20px;
+            max-height: 500px;
+        }
+        
+        /* Contact Section */
+        .contact {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+        
+        .contact h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .contact p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .contact .cta-button {
+            background-color: white;
+            color: var(--primary-color);
+            border-color: white;
+        }
+        
+        .contact .cta-button:hover {
+            background-color: transparent;
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-content {
+                max-width: 100%;
+                text-align: center;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                height: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+            
+            .section-title h2 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body class="education-theme">
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <button id="lightThemeBtn" class="theme-btn">☀️</button>
+        <button id="darkThemeBtn" class="theme-btn">🌙</button>
+        <button id="educationThemeBtn" class="theme-btn">📚</button>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Руслан</div>
+                <div class="nav-links">
+                    <a href="#services" class="nav-link" data-ru="Услуги" data-en="Services">Услуги</a>
+                    <a href="#why-me" class="nav-link" data-ru="Почему я" data-en="Why Me">Почему я</a>
+                    <a href="#portfolio" class="nav-link" data-ru="Портфолио" data-en="Portfolio">Портфолио</a>
+                    <a href="#process" class="nav-link" data-ru="Процесс" data-en="Process">Процесс</a>
+                    <a href="#about" class="nav-link" data-ru="Обо мне" data-en="About">Обо мне</a>
+                    <a href="#faq" class="nav-link" data-ru="FAQ" data-en="FAQ">FAQ</a>
+                    <a href="#contact" class="nav-link" data-ru="Контакты" data-en="Contact">Контакты</a>
+                </div>
+                <div class="language-toggle">
+                    <button class="active" id="ruBtn">RU</button>
+                    <button id="enBtn">EN</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="animate__animated animate__fadeInDown" data-ru="Создаю современные сайты под ключ" data-en="I create modern turnkey websites">Создаю современные сайты под ключ</h1>
+                <p class="animate__animated animate__fadeInDown animate__delay-1s" data-ru="Я Руслан, веб-разработчик, специализирующийся на создании быстрых, адаптивных и визуально привлекательных сайтов с профессиональными анимациями." data-en="I'm Ruslan, a web developer specializing in creating fast, responsive and visually appealing websites with professional animations.">Я Руслан, веб-разработчик, специализирующийся на создании быстрых, адаптивных и визуально привлекательных сайтов с профессиональными анимациями.</p>
+                <a href="#contact" class="cta-button animate__animated animate__fadeInUp animate__delay-2s" data-ru="Обсудить проект" data-en="Discuss project">Обсудить проект</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-ru="Мои услуги" data-en="My Services">Мои услуги</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3 data-ru="Лендинги" data-en="Landing Pages">Лендинги</h3>
+                    <p data-ru="Одностраничные сайты для презентации продукта или услуги с высокой конверсией." data-en="Single-page websites for product or service presentation with high conversion rates.">Одностраничные сайты для презентации продукта или услуги с высокой конверсией.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💻</div>
+                    <h3 data-ru="Многостраничные сайты" data-en="Multi-page Websites">Многостраничные сайты</h3>
+                    <p data-ru="Полноценные веб-сайты для бизнеса с несколькими разделами и страницами." data-en="Full-fledged business websites with multiple sections and pages.">Полноценные веб-сайты для бизнеса с несколькими разделами и страницами.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔄</div>
+                    <h3 data-ru="Адаптивная верстка" data-en="Responsive Design">Адаптивная верстка</h3>
+                    <p data-ru="Сайты, которые идеально отображаются на всех устройствах - от смартфонов до десктопов." data-en="Websites that display perfectly on all devices - from smartphones to desktops.">Сайты, которые идеально отображаются на всех устройствах - от смартфонов до десктопов.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Me Section -->
+    <section class="section why-me" id="why-me">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-ru="Почему выбрать меня" data-en="Why Choose Me">Почему выбрать меня</h2>
+            </div>
+            <div class="advantages">
+                <div class="advantage">
+                    <div class="advantage-icon">⚡</div>
+                    <h3 data-ru="Быстро" data-en="Fast">Быстро</h3>
+                    <p data-ru="Макет за 1-2 дня, готовый сайт за 7-8 дней. Не затягиваю сроки." data-en="Mockup in 1-2 days, finished website in 7-8 days. I don't delay deadlines.">Макет за 1-2 дня, готовый сайт за 7-8 дней. Не затягиваю сроки.</p>
+                </div>
+                <div class="advantage">
+                    <div class="advantage-icon">🎨</div>
+                    <h3 data-ru="Профессиональные анимации" data-en="Professional Animations">Профессиональные анимации</h3>
+                    <p data-ru="Использую современные технологии для создания плавных и эффектных анимаций." data-en="I use modern technologies to create smooth and impressive animations.">Использую современные технологии для создания плавных и эффектных анимаций.</p>
+                </div>
+                <div class="advantage">
+                    <div class="advantage-icon">📱</div>
+                    <h3 data-ru="Адаптивность" data-en="Responsiveness">Адаптивность</h3>
+                    <p data-ru="Сайты идеально работают на всех устройствах и в любых браузерах." data-en="Websites work perfectly on all devices and in any browsers.">Сайты идеально работают на всех устройствах и в любых браузерах.</p>
+                </div>
+                <div class="advantage">
+                    <div class="advantage-icon">🤝</div>
+                    <h3 data-ru="Индивидуальный подход" data-en="Individual Approach">Индивидуальный подход</h3>
+                    <p data-ru="Каждый проект - это уникальное решение под конкретные задачи клиента." data-en="Each project is a unique solution tailored to the client's specific needs.">Каждый проект - это уникальное решение под конкретные задачи клиента.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="section" id="portfolio">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-ru="Примеры работ" data-en="Portfolio">Примеры работ</h2>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Ресторан Bella Vista">
+                    <div class="portfolio-overlay">
+                        <h3 data-ru="Ресторан Bella Vista" data-en="Bella Vista Restaurant">Ресторан Bella Vista</h3>
+                        <p data-ru="Сайт-меню для премиального ресторана" data-en="Menu website for a premium restaurant">Сайт-меню для премиального ресторана</p>
+                        <a href="https://bellavista-beta.vercel.app" target="_blank" class="cta-button" style="margin-top: 10px; background-color: white; color: var(--primary-color);" data-ru="Посмотреть" data-en="View">Посмотреть</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Спортзал Kolizey">
+                    <div class="portfolio-overlay">
+                        <h3 data-ru="Спортзал Kolizey" data-en="Kolizey Gym">Спортзал Kolizey</h3>
+                        <p data-ru="Сайт для фитнес-центра с расписанием и услугами" data-en="Website for a fitness center with schedule and services">Сайт для фитнес-центра с расписанием и услугами</p>
+                        <a href="https://kolizeygym.vercel.app/" target="_blank" class="cta-button" style="margin-top: 10px; background-color: white; color: var(--primary-color);" data-ru="Посмотреть" data-en="View">Посмотреть</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Образовательный центр FastLang">
+                    <div class="portfolio-overlay">
+                        <h3 data-ru="Образовательный центр FastLang" data-en="FastLang Education Center">Образовательный центр FastLang</h3>
+                        <p data-ru="Сайт для курсов иностранных языков" data-en="Website for language courses">Сайт для курсов иностранных языков</p>
+                        <a href="https://fast-lang.vercel.app" target="_blank" class="cta-button" style="margin-top: 10px; background-color: white; color: var(--primary-color);" data-ru="Посмотреть" data-en="View">Посмотреть</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="section" id="process">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-ru="Как я работаю" data-en="My Process">Как я работаю</h2>
+            </div>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 data-ru="Обсуждение проекта" data-en="Project Discussion">Обсуждение проекта</h3>
+                        <p data-ru="Мы обсуждаем ваши цели, целевую аудиторию и предпочтения по дизайну. Определяем сроки и бюджет." data-en="We discuss your goals, target audience and design preferences. We determine deadlines and budget.">Мы обсуждаем ваши цели, целевую аудиторию и предпочтения по дизайну. Определяем сроки и бюджет.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 data-ru="Создание макета" data-en="Creating a Mockup">Создание макета</h3>
+                        <p data-ru="В течение 1-2 дней я создаю для вас макет будущего сайта и согласовываю его с вами." data-en="Within 1-2 days I create a mockup of the future website and coordinate it with you.">В течение 1-2 дней я создаю для вас макет будущего сайта и согласовываю его с вами.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 data-ru="Разработка сайта" data-en="Website Development">Разработка сайта</h3>
+                        <p data-ru="После утверждения макета я приступаю к верстке и программированию. Срок разработки - 5-6 дней." data-en="After approving the mockup, I start coding. Development time is 5-6 days.">После утверждения макета я приступаю к верстке и программированию. Срок разработки - 5-6 дней.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3 data-ru="Тестирование и запуск" data-en="Testing and Launch">Тестирование и запуск</h3>
+                        <p data-ru="Проверяю сайт на всех устройствах, исправляю недочеты и запускаю проект." data-en="I test the website on all devices, fix any issues and launch the project.">Проверяю сайт на всех устройствах, исправляю недочеты и запускаю проект.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Руслан - веб-разработчик">
+                </div>
+                <div class="about-text">
+                    <h2 data-ru="Обо мне" data-en="About Me">Обо мне</h2>
+                    <p data-ru="Привет! Я Руслан, веб-разработчик с фокусом на создание современных и функциональных сайтов." data-en="Hello! I'm Ruslan, a web developer focused on creating modern and functional websites.">Привет! Я Руслан, веб-разработчик с фокусом на создание современных и функциональных сайтов.</p>
+                    <p data-ru="Специализируюсь на разработке сайтов под ключ - от идеи до запуска. Мои работы сочетают в себе чистый код, адаптивный дизайн и профессиональные анимации." data-en="I specialize in turnkey website development - from idea to launch. My work combines clean code, responsive design and professional animations.">Специализируюсь на разработке сайтов под ключ - от идеи до запуска. Мои работы сочетают в себе чистый код, адаптивный дизайн и профессиональные анимации.</p>
+                    <p data-ru="Использую HTML, CSS, Canva и Tilda для создания сайтов, которые не только красиво выглядят, но и эффективно решают бизнес-задачи моих клиентов." data-en="I use HTML, CSS, Canva and Tilda to create websites that not only look good but also effectively solve my clients' business problems.">Использую HTML, CSS, Canva и Tilda для создания сайтов, которые не только красиво выглядят, но и эффективно решают бизнес-задачи моих клиентов.</p>
+                    <p data-ru="Люблю свою работу и подхожу к каждому проекту с максимальной ответственностью." data-en="I love my work and approach each project with maximum responsibility.">Люблю свою работу и подхожу к каждому проекту с максимальной ответственностью.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section" id="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-ru="Частые вопросы" data-en="FAQ">Частые вопросы</h2>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question" data-ru="Сколько времени занимает создание сайта?" data-en="How long does it take to create a website?">Сколько времени занимает создание сайта?</div>
+                    <div class="faq-answer">
+                        <p data-ru="Макет сайта я предоставляю в течение 1-2 дней после обсуждения всех деталей. Полная разработка и запуск сайта занимает 7-8 дней." data-en="I provide a website mockup within 1-2 days after discussing all details. Full development and launch takes 7-8 days.">Макет сайта я предоставляю в течение 1-2 дней после обсуждения всех деталей. Полная разработка и запуск сайта занимает 7-8 дней.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" data-ru="Какие технологии вы используете?" data-en="What technologies do you use?">Какие технологии вы используете?</div>
+                    <div class="faq-answer">
+                        <p data-ru="Я работаю с HTML, CSS, Canva и Tilda. Для сложных анимаций использую JavaScript библиотеки, но основная работа ведется на чистом коде." data-en="I work with HTML, CSS, Canva and Tilda. For complex animations I use JavaScript libraries, but the main work is done with pure code.">Я работаю с HTML, CSS, Canva и Tilda. Для сложных анимаций использую JavaScript библиотеки, но основная работа ведется на чистом коде.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" data-ru="Делаете ли вы сайты для мобильных устройств?" data-en="Do you make websites for mobile devices?">Делаете ли вы сайты для мобильных устройств?</div>
+                    <div class="faq-answer">
+                        <p data-ru="Да, все мои сайты полностью адаптивны и корректно отображаются на любых устройствах - от смартфонов до больших мониторов." data-en="Yes, all my websites are fully responsive and display correctly on any device - from smartphones to large monitors.">Да, все мои сайты полностью адаптивны и корректно отображаются на любых устройствах - от смартфонов до больших мониторов.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" data-ru="Как происходит оплата?" data-en="How is payment made?">Как происходит оплата?</div>
+                    <div class="faq-answer">
+                        <p data-ru="Оплата происходит в два этапа: 50% предоплата перед началом работы и 50% после завершения проекта перед передачей всех материалов." data-en="Payment is made in two stages: 50% prepayment before starting work and 50% after project completion before transferring all materials.">Оплата происходит в два этапа: 50% предоплата перед началом работы и 50% после завершения проекта перед передачей всех материалов.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 data-ru="Готов обсудить ваш сайт?" data-en="Ready to discuss your website?">Готов обсудить ваш сайт?</h2>
+            <p data-ru="Напишите мне в Telegram — я предложу вам макет уже в течение 1–2 дней. Сделаю быстро, качественно и с анимациями." data-en="Write to me on Telegram - I'll provide you with a mockup within 1-2 days. I'll do it fast, high quality and with animations.">Напишите мне в Telegram — я предложу вам макет уже в течение 1–2 дней. Сделаю быстро, качественно и с анимациями.</p>
+            <a href="https://t.me/rs_kaaaaa" class="cta-button" data-ru="Написать в Telegram" data-en="Write on Telegram">Написать в Telegram</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p data-ru="© 2023 Руслан - Веб-разработчик. Все права защищены." data-en="© 2023 Ruslan - Web Developer. All rights reserved.">© 2023 Руслан - Веб-разработчик. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Анимации при скролле
+        document.addEventListener('DOMContentLoaded', function() {
+            // Анимации при скролле
+            const animateOnScroll = () => {
+                const elements = document.querySelectorAll('.service-card, .advantage, .portfolio-item, .step, .about-image, .about-text, .faq-item');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (elementPosition < screenPosition) {
+                        element.classList.add('animate');
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Запустить при загрузке для уже видимых элементов
+            
+            // FAQ аккордеон
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const isOpen = answer.classList.contains('open');
+                    
+                    // Закрыть все ответы
+                    document.querySelectorAll('.faq-answer').forEach(ans => {
+                        ans.classList.remove('open');
+                    });
+                    document.querySelectorAll('.faq-question').forEach(q => {
+                        q.classList.remove('active');
+                    });
+                    
+                    // Открыть текущий, если был закрыт
+                    if (!isOpen) {
+                        answer.classList.add('open');
+                        question.classList.add('active');
+                    }
+                });
+            });
+            
+            // Плавная прокрутка
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Переключение языка
+            const ruBtn = document.getElementById('ruBtn');
+            const enBtn = document.getElementById('enBtn');
+            const elementsToTranslate = document.querySelectorAll('[data-ru], [data-en]');
+            
+            ruBtn.addEventListener('click', () => {
+                ruBtn.classList.add('active');
+                enBtn.classList.remove('active');
+                
+                elementsToTranslate.forEach(element => {
+                    if (element.dataset.ru) {
+                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                            element.placeholder = element.dataset.ru;
+                        } else {
+                            element.textContent = element.dataset.ru;
+                        }
+                    }
+                });
+            });
+            
+            enBtn.addEventListener('click', () => {
+                enBtn.classList.add('active');
+                ruBtn.classList.remove('active');
+                
+                elementsToTranslate.forEach(element => {
+                    if (element.dataset.en) {
+                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                            element.placeholder = element.dataset.en;
+                        } else {
+                            element.textContent = element.dataset.en;
+                        }
+                    }
+                });
+            });
+            
+            // Эффект появления/скрытия хедера
+            window.addEventListener('scroll', () => {
+                const scrollPosition = window.scrollY;
+                const header = document.querySelector('header');
+                
+                if (scrollPosition > 100) {
+                    header.style.backgroundColor = 'rgba(var(--card-bg-rgb), 0.98)';
+                    header.style.padding = '10px 0';
+                } else {
+                    header.style.backgroundColor = 'rgba(var(--card-bg-rgb), 0.95)';
+                    header.style.padding = '15px 0';
+                }
+            });
+            
+            // Переключение тем
+            const lightThemeBtn = document.getElementById('lightThemeBtn');
+            const darkThemeBtn = document.getElementById('darkThemeBtn');
+            const educationThemeBtn = document.getElementById('educationThemeBtn');
+            const body = document.body;
+            
+            lightThemeBtn.addEventListener('click', () => {
+                body.className = '';
+            });
+            
+            darkThemeBtn.addEventListener('click', () => {
+                body.className = 'dark-mode';
+            });
+            
+            educationThemeBtn.addEventListener('click', () => {
+                body.className = 'education-theme';
+            });
+        });
+    </script>
+</body>
+</html>
